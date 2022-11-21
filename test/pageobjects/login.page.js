@@ -35,6 +35,13 @@ class LoginPage  {
         await this.btnLogin.click();
     }
 
+    get humburguerMenu () {
+      return $("#react-burger-menu-btn")
+    }
+
+    get logoutBtn () {
+      return $("#logout_sidebar_link")
+    }
 }
 
 export default new LoginPage();
