@@ -1,4 +1,5 @@
 import LoginPage from  "../pageobjects/login.page";
+import InventoryPage from  "../pageobjects/inventory.page";
 
 describe("My Login application", () => {
     beforeAll('Navigate to url', () => {
@@ -7,7 +8,7 @@ describe("My Login application", () => {
 
     it("Should not login with empty credentials", async () => {
         await LoginPage.login("","");
-        await expect(LoginPage.botImage).toBeDisplayed();
+        await LoginPage.botImage.getCSSProperty('/static/media/Login_Bot_graphic.20658452.png');
         await expect(LoginPage.errorMesg).toBeDisplayed();
         await expect(LoginPage.errorMesg).toHaveText("Epic sadface: Username is required");
         await browser.refresh();
@@ -15,7 +16,7 @@ describe("My Login application", () => {
 
     it("Should not login without password", async () => {
         await LoginPage.login("standard_user","");
-        await expect(LoginPage.botImage).toBeDisplayed();
+        await LoginPage.botImage.getCSSProperty('/static/media/Login_Bot_graphic.20658452.png');
         await expect(LoginPage.errorMesg).toBeDisplayed();
         await expect(LoginPage.errorMesg).toHaveText("Epic sadface: Password is required");
         await browser.refresh();
@@ -24,7 +25,7 @@ describe("My Login application", () => {
 
     it("Should not login with wrong user and without password", async () => {
         await LoginPage.login("wrongUser","");
-        await expect(LoginPage.botImage).toBeDisplayed();
+        await LoginPage.botImage.getCSSProperty('/static/media/Login_Bot_graphic.20658452.png');
         await expect(LoginPage.errorMesg).toBeDisplayed();
         await expect(LoginPage.errorMesg).toHaveText("Epic sadface: Password is required");
         await browser.refresh();
@@ -32,7 +33,7 @@ describe("My Login application", () => {
 
     it("Should not login without username and wrong password", async () => {
         await LoginPage.login("","invalid");
-        await expect(LoginPage.botImage).toBeDisplayed();
+        await LoginPage.botImage.getCSSProperty('/static/media/Login_Bot_graphic.20658452.png');
         await expect(LoginPage.errorMesg).toBeDisplayed();
         await expect(LoginPage.errorMesg).toHaveText("Epic sadface: Username is required");
         await browser.refresh();
@@ -40,7 +41,7 @@ describe("My Login application", () => {
 
     it("Should not login valid (standard) user, but empty password", async () => {
         await LoginPage.login("standard_user","");
-        await expect(LoginPage.botImage).toBeDisplayed();
+        await LoginPage.botImage.getCSSProperty('/static/media/Login_Bot_graphic.20658452.png');
         await expect(LoginPage.errorMesg).toBeDisplayed();
         await expect(LoginPage.errorMesg).toHaveText("Epic sadface: Password is required");
         await browser.refresh();
@@ -48,7 +49,7 @@ describe("My Login application", () => {
 
     it("Should not login with valid (standard) user, but wrong password", async () => {
         await LoginPage.login("standard_user","wrongpassword");
-        await expect(LoginPage.botImage).toBeDisplayed();
+        await LoginPage.botImage.getCSSProperty('/static/media/Login_Bot_graphic.20658452.png');
         await expect(LoginPage.errorMesg).toBeDisplayed();
         await expect(LoginPage.errorMesg).toHaveText("Epic sadface: Username and password do not match any user in this service");
         await browser.refresh();
@@ -57,19 +58,20 @@ describe("My Login application", () => {
     it("Should login with valid (standard) user", async () => {
         await LoginPage.login("standard_user","secret_sauce");
         await expect(browser).toHaveUrl("https://www.saucedemo.com/inventory.html");
-        await LoginPage.humburguerMenu.waitForDisplayed({timeout: 1000});
-        await expect(LoginPage.humburguerMenu).toBeDisplayed();
-        await LoginPage.humburguerMenu.click();
-        await expect(LoginPage.logoutBtn).toBeDisplayed();
-        await LoginPage.logoutBtn.click();
+        await expect(InventoryPage.productImage).toHaveAttr("src", "https://www.saucedemo.com/static/media/sauce-backpack-1200x1500.34e7aa42.jpg");
+        await InventoryPage.humburguerMenu.waitForDisplayed({timeout: 1000});
+        await expect(InventoryPage.humburguerMenu).toBeDisplayed();
+        await InventoryPage.humburguerMenu.click();
+        await expect(InventoryPage.logoutBtn).toBeDisplayed();
+        await InventoryPage.logoutBtn.click();
         await expect(browser).toHaveUrl("https://www.saucedemo.com/");
-        await expect(LoginPage.botImage).toBeDisplayed();
+        await LoginPage.botImage.getCSSProperty('/static/media/Login_Bot_graphic.20658452.png');
         await browser.refresh();
     });
 
     it("Should not login with (canceled) user, and empty password", async () => {
         await LoginPage.login("locked_out_user","");
-        await expect(LoginPage.botImage).toBeDisplayed();
+        await LoginPage.botImage.getCSSProperty('/static/media/Login_Bot_graphic.20658452.png');
         await expect(LoginPage.errorMesg).toBeDisplayed();
         await expect(LoginPage.errorMesg).toHaveText("Epic sadface: Password is required");
         await browser.refresh();
@@ -77,7 +79,7 @@ describe("My Login application", () => {
 
     it("Should not login with (canceled) user, and wrong password", async () => {
         await LoginPage.login("locked_out_user","wrongPassword");
-        await expect(LoginPage.botImage).toBeDisplayed();
+        await LoginPage.botImage.getCSSProperty('/static/media/Login_Bot_graphic.20658452.png');
         await expect(LoginPage.errorMesg).toBeDisplayed();
         await expect(LoginPage.errorMesg).toHaveText("Epic sadface: Username and password do not match any user in this service");
         await browser.refresh();
@@ -85,7 +87,7 @@ describe("My Login application", () => {
 
     it("Should not login with (canceled) user", async () => {
         await LoginPage.login("locked_out_user","secret_sauce");
-        await expect(LoginPage.botImage).toBeDisplayed();
+        await LoginPage.botImage.getCSSProperty('/static/media/Login_Bot_graphic.20658452.png');
         await expect(LoginPage.errorMesg).toBeDisplayed();
         await expect(LoginPage.errorMesg).toHaveText("Epic sadface: Sorry, this user has been locked out.");
         await browser.refresh();
@@ -93,7 +95,7 @@ describe("My Login application", () => {
 
     it("Should not login with (problem) user, and empty password", async () => {
         await LoginPage.login("problem_userr","");
-        await expect(LoginPage.botImage).toBeDisplayed();
+        await LoginPage.botImage.getCSSProperty('/static/media/Login_Bot_graphic.20658452.png');
         await expect(LoginPage.errorMesg).toBeDisplayed();
         await expect(LoginPage.errorMesg).toHaveText("Epic sadface: Password is required");
         await browser.refresh();
@@ -101,29 +103,30 @@ describe("My Login application", () => {
 
     it("Should not login with (problem) user, and wrong password", async () => {
         await LoginPage.login("problem_userr","wrongPassword");
-        await expect(LoginPage.botImage).toBeDisplayed();
+        await LoginPage.botImage.getCSSProperty('/static/media/Login_Bot_graphic.20658452.png');
         await expect(LoginPage.errorMesg).toBeDisplayed();
         await expect(LoginPage.errorMesg).toHaveText("Epic sadface: Username and password do not match any user in this service");
         await browser.refresh();
     });
 
-    // it("Should login with (problem) user", async () => {
-    //     await LoginPage.login("problem_userr","secret_sauce");
-    //     await expect(browser).toHaveUrl("https://www.saucedemo.com/inventory.html");
-    //     await LoginPage.humburguerMenu.waitForDisplayed({timeout: 30000});
-    //     await expect(LoginPage.humburguerMenu).toBeDisplayed();
-    //     await LoginPage.humburguerMenu.click();
-    //     await expect(LoginPage.logoutBtn).toBeDisplayed();
-    //     await browser.pause(1000);
-    //     await LoginPage.logoutBtn.click();
-    //     await expect(browser).toHaveUrl("https://www.saucedemo.com/");
-    //     await expect(LoginPage.botImage).toBeDisplayed();
-    //     await browser.refresh();
-    // });
+    it("Should login with (problem) user", async () => {
+        await LoginPage.login("problem_user","secret_sauce");
+        await expect(browser).toHaveUrl("https://www.saucedemo.com/inventory.html");
+        await expect(InventoryPage.problemUserImage).toHaveAttr("src", "/static/media/sl-404.168b1cce.jpg");
+        await InventoryPage.humburguerMenu.waitForDisplayed({timeout: 10000});
+        await expect(InventoryPage.humburguerMenu).toBeDisplayed();
+        await InventoryPage.humburguerMenu.click();
+        await expect(InventoryPage.logoutBtn).toBeDisplayed();
+        await browser.pause(1000);
+        await InventoryPage.logoutBtn.click();
+        await expect(browser).toHaveUrl("https://www.saucedemo.com/");
+        await LoginPage.botImage.getCSSProperty('/static/media/Login_Bot_graphic.20658452.png');
+        await browser.refresh();
+    });
 
     it("Should not login with (performance) user, and empty password", async () => {
         await LoginPage.login("performance_glitch_user","");
-        await expect(LoginPage.botImage).toBeDisplayed();
+        await LoginPage.botImage.getCSSProperty('/static/media/Login_Bot_graphic.20658452.png');
         await expect(LoginPage.errorMesg).toBeDisplayed();
         await expect(LoginPage.errorMesg).toHaveText("Epic sadface: Password is required");
         await browser.refresh();
@@ -131,7 +134,7 @@ describe("My Login application", () => {
 
     it("Should not login with (performance) user, and wrong password", async () => {
         await LoginPage.login("performance_glitch_user","wrongPassword");
-        await expect(LoginPage.botImage).toBeDisplayed();
+        await LoginPage.botImage.getCSSProperty('/static/media/Login_Bot_graphic.20658452.png');
         await expect(LoginPage.errorMesg).toBeDisplayed();
         await expect(LoginPage.errorMesg).toHaveText("Epic sadface: Username and password do not match any user in this service");
         await browser.refresh();
@@ -140,12 +143,15 @@ describe("My Login application", () => {
     it("Should login with valid (performance) user", async () => {
         await LoginPage.login("performance_glitch_user","secret_sauce");
         await expect(browser).toHaveUrl("https://www.saucedemo.com/inventory.html");
-        await expect(LoginPage.humburguerMenu).toBeDisplayed();
-        await LoginPage.humburguerMenu.click();
-        await expect(LoginPage.logoutBtn).toBeDisplayed();
-        await LoginPage.logoutBtn.click();
+        await expect(InventoryPage.productImage).toHaveAttr("src", "https://www.saucedemo.com/static/media/sauce-backpack-1200x1500.34e7aa42.jpg");
+        await InventoryPage.humburguerMenu.waitForDisplayed({timeout: 4000});
+        await expect(InventoryPage.humburguerMenu).toBeDisplayed();
+        await InventoryPage.humburguerMenu.click();
+        await InventoryPage.logoutBtn.waitForDisplayed({timeout: 2000});
+        await expect(InventoryPage.logoutBtn).toBeDisplayed();
+        await InventoryPage.logoutBtn.click();
         await expect(browser).toHaveUrl("https://www.saucedemo.com/");
-        await expect(LoginPage.botImage).toBeDisplayed();
+        await LoginPage.botImage.getCSSProperty('/static/media/Login_Bot_graphic.20658452.png');
         await browser.refresh();
     });
 
