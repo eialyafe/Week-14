@@ -25,6 +25,14 @@ class LoginPage  {
     return $("#root > div > div.login_wrapper > div.login_wrapper-inner > div.bot_column")
   }
 
+  get humburguerMenu () {
+    return $("#react-burger-menu-btn")
+  }
+
+  get logoutBtn () {
+    return $("#logout_sidebar_link")
+  }
+
     /**
      * a method to encapsule automation code to interact with the page
      * e.g. to login using username and password
@@ -33,14 +41,6 @@ class LoginPage  {
         await this.inputUsername.setValue(username);
         await this.inputPassword.setValue(password);
         await this.btnLogin.click();
-    }
-
-    get humburguerMenu () {
-      return $("#react-burger-menu-btn")
-    }
-
-    get logoutBtn () {
-      return $("#logout_sidebar_link")
     }
 }
 

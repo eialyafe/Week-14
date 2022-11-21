@@ -10,6 +10,7 @@ describe("My Login application", () => {
         await expect(LoginPage.botImage).toBeDisplayed();
         await expect(LoginPage.errorMesg).toBeDisplayed();
         await expect(LoginPage.errorMesg).toHaveText("Epic sadface: Username is required");
+        await browser.refresh();
     });
 
     it("Should not login without password", async () => {
@@ -17,6 +18,7 @@ describe("My Login application", () => {
         await expect(LoginPage.botImage).toBeDisplayed();
         await expect(LoginPage.errorMesg).toBeDisplayed();
         await expect(LoginPage.errorMesg).toHaveText("Epic sadface: Password is required");
+        await browser.refresh();
     });
 
 
@@ -25,6 +27,7 @@ describe("My Login application", () => {
         await expect(LoginPage.botImage).toBeDisplayed();
         await expect(LoginPage.errorMesg).toBeDisplayed();
         await expect(LoginPage.errorMesg).toHaveText("Epic sadface: Password is required");
+        await browser.refresh();
     });
 
     it("Should not login without username and wrong password", async () => {
@@ -32,13 +35,23 @@ describe("My Login application", () => {
         await expect(LoginPage.botImage).toBeDisplayed();
         await expect(LoginPage.errorMesg).toBeDisplayed();
         await expect(LoginPage.errorMesg).toHaveText("Epic sadface: Username is required");
+        await browser.refresh();
     });
 
-    it("Should not login with wrong password", async () => {
+    it("Should not login valid user, but empty password", async () => {
+        await LoginPage.login("standard_user","");
+        await expect(LoginPage.botImage).toBeDisplayed();
+        await expect(LoginPage.errorMesg).toBeDisplayed();
+        await expect(LoginPage.errorMesg).toHaveText("Epic sadface: Password is required");
+        await browser.refresh();
+    });
+
+    it("Should not login with valid user, but wrong password", async () => {
         await LoginPage.login("standard_user","wrongpassword");
         await expect(LoginPage.botImage).toBeDisplayed();
         await expect(LoginPage.errorMesg).toBeDisplayed();
         await expect(LoginPage.errorMesg).toHaveText("Epic sadface: Username and password do not match any user in this service");
+        await browser.refresh();
     });
 
     it("Should login with valid credentials", async () => {
@@ -51,14 +64,41 @@ describe("My Login application", () => {
         await LoginPage.logoutBtn.click();
         await expect(browser).toHaveUrl("https://www.saucedemo.com/");
         await expect(LoginPage.botImage).toBeDisplayed();
+        await browser.refresh();
     });
 
-    it("Should not login user canceled", async () => {
+    it("Should not login with canceled user, and empty password", async () => {
+        await LoginPage.login("locked_out_user","");
+        await expect(LoginPage.botImage).toBeDisplayed();
+        await expect(LoginPage.errorMesg).toBeDisplayed();
+        await expect(LoginPage.errorMesg).toHaveText("Epic sadface: Password is required");
+        await browser.refresh();
+    });
+
+    it("Should not login with canceled user, and wrong password", async () => {
+        await LoginPage.login("locked_out_user","wrongPassword");
+        await expect(LoginPage.botImage).toBeDisplayed();
+        await expect(LoginPage.errorMesg).toBeDisplayed();
+        await expect(LoginPage.errorMesg).toHaveText("Epic sadface: Username and password do not match any user in this service");
+        await browser.refresh();
+    });
+
+    it("Should not login with canceled user", async () => {
         await LoginPage.login("locked_out_user","secret_sauce");
         await expect(LoginPage.botImage).toBeDisplayed();
         await expect(LoginPage.errorMesg).toBeDisplayed();
         await expect(LoginPage.errorMesg).toHaveText("Epic sadface: Sorry, this user has been locked out.");
+        await browser.refresh();
     });
+
+    it("Should not login with problem user, and empty password", async () => {
+        await LoginPage.login("locked_out_useproblem_userr","");
+        await expect(LoginPage.botImage).toBeDisplayed();
+        await expect(LoginPage.errorMesg).toBeDisplayed();
+        await expect(LoginPage.errorMesg).toHaveText("Epic sadface: Password is required");
+        await browser.refresh();
+    });
+
 });
 
 // await expect(LoginPage.humburguerMenu).toBeDisplayed({timeout: 5000});
