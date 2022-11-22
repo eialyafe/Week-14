@@ -1,5 +1,4 @@
 import LoginPage from  "../pageobjects/login.page";
-import InventoryPage from  "../pageobjects/inventory.page";
 
 describe("My Login application", () => {
   beforeAll('Navigate to url', () => {

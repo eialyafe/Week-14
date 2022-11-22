@@ -1,10 +1,9 @@
 import LoginPage from  "../pageobjects/login.page";
-import InventoryPage from  "../pageobjects/inventory.page";
 
 describe("Canceled user login", () => {
 
   beforeAll('Navigate to url', () => {
-    browser.url("https://www.saucedemo.com/")
+    browser.url("https://www.saucedemo.com/");
   });
 
 it("Should not login with (canceled) user, and empty password", async () => {
