@@ -1,4 +1,5 @@
 import InventoryPage from  "../pageobjects/inventory.page";
+import CartPage from  "../pageobjects/cart.page";
 
 describe("Standard user login", () => {
   beforeAll('Navigate to url', () => {
@@ -13,6 +14,13 @@ describe("Standard user login", () => {
     await expect(InventoryPage.cartLogo).toBeDisplayed();
     await expect(InventoryPage.addToCartBagBtn).toBeDisplayed();
     await InventoryPage.addToCartBagBtn.click();
+    await InventoryPage.cartLogo.click();
+    await CartPage.checkOutBtn.waitForDisplayed({timeout: 1000});
+    await expect(CartPage.checkOutBtn).toBeDisplayed();
+    await expect(CartPage.bagProductDescription).toHaveText("carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.");
+    await expect(CartPage.bagProductDescription).toContain("carry.allTheThings")();
+    await CartPage.checkOutBtn.click();
+
     await browser.refresh();
   });
 

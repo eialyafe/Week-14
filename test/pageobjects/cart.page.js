@@ -1,5 +1,11 @@
 class CartPage {
-	get bagTitle () {
-    return $("#item_4_title_link");
+	get bagProductDescription () {
+    return $(".inventory_item_desc");
+  }
+
+	get checkOutBtn () {
+    return $("#checkout");
   }
 }
+
+export default new CartPage();
