@@ -14,6 +14,17 @@ class InventoryPage {
   get logoutBtn () {
     return $("#logout_sidebar_link")
   }
-}
 
+  get appLogo () {
+    return $(".app_logo")
+  }
+
+  get cartLogo () {
+    return $(".shopping_cart_link")
+  }
+
+  get addToCartBagBtn () {
+    return $("#add-to-cart-sauce-labs-backpack")
+  }
+}
 export default new InventoryPage();
