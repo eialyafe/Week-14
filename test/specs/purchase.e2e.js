@@ -4,12 +4,12 @@ import CartPage from  "../pageobjects/cart.page";
 import CheckoutPage from "../pageobjects/checkout.page";
 
 
-describe("Standard user login", () => {
+describe("Purchase process", () => {
   beforeAll('Navigate to url', () => {
     browser.url("https://www.saucedemo.com/");
   });
 
-  it("Should login, buy a product, and logout", async () => {
+  it("Should login", async () => {
     await LoginPage.login("standard_user","secret_sauce");
     await expect(browser).toHaveUrl("https://www.saucedemo.com/inventory.html");
     await expect(InventoryPage.productImage).toHaveAttr("src", "https://www.saucedemo.com/static/media/sauce-backpack-1200x1500.34e7aa42.jpg");
